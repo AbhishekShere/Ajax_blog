@@ -1,0 +1,42 @@
+<%= form_for(@post) do |f| %>
+  <% if @post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% @post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :content %><br>
+    <%= f.text_area :content %>
+  </div>
+  <div class="actions">
+    <%= submit_tag 'Submit', :type => 'button', :id => 'submit' %>
+  </div>
+<% end %>
+<script type="text/javascript">
+  $('#submit').bind('click', function(){
+    var myval = { name: $('#post_name').val(), title: $('#post_title').val(), content: $('#post_content').val() }
+    $.ajax({
+      url: "#{posts_path}",
+      type: 'POST',
+      data: { post: myval },
+      dataType: 'json'
+    }).done(function(response) {
+      alert('I am done')
+    });
+  });
+</script>

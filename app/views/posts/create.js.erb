@@ -1,0 +1,2 @@
+$('#posts').append("<%= escape_javascript(render(:partial => 'display', :locals => {:post => @post})) %>");
+$('#post_name').val(''),$('#post_title').val(''),$('#post_content').val('')
